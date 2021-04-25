@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+{% block title %}items {% endblock %}
+{% block body %}
+{% include 'header.html'%}
+        <div class="container mt-5">
+            <!-- top -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>View Grocery List</h1>
+
+                </div>
+                <div class="col-lg-6 float-right">
+                    <form method="post" action="{% url 'filter' %}">
+                        {% csrf_token %}
+                    <div class="row">
+                        
+                        <div class="col-lg-8">
+                            <!-- Date Filtering-->
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="submit" class="btn btn-danger" value="filter">
+                        </div>
+                    
+                    </div>
+                </form>
+                </div>
+            </div><hr>
+            <!-- // top -->
+            <!-- Grocery Cards -->
+            <div class="row mt-4">
+                <!--- -->
+                <!-- Loop This -->
+               
+                <!-- // Loop -->
+                {% for data in datas %}
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{data.name}}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">{{data.quantity}}</h6>
+                          <p class="text-info">{{data.status|upper}}</p>
+                          <small>{{data.created_at}}</small>
+                          {% if first_name %}
+                          <p><a style="float:left;" href="{% url 'update' pk=data.id%}">Update</a>
+                          <a style="float:right;"  href="{% url 'delete' pk=data.id%}">Delete</a></p>
+                          {% else %}
+                          <p>For update or delete, Plz Login.</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <br>
+                </div>
+                {%endfor %}
+
+            </div>
+        </div>
+        {% endblock %}

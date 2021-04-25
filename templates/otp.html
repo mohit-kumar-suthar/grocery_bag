@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Email Authentication{% endblock %}
+
+{% block body %}
+{% include 'header.html' %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form method="post">
+                {% csrf_token %}
+                <legend>One Time Password</legend><hr>
+                {% include 'messages.html' %}
+                <small>OTP sant to your email address</small>
+                <div class="form-group">
+                    {{otp_form.otp_num}}
+                </div>
+                <input type="submit" class="btn btn-outline-primary"  value="Varify and Continue">
+            </form>
+        </div> 
+        <div class="col-md-4"> </div>
+    </div>
+</div>
+{% endblock %}
